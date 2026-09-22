@@ -1,0 +1,38 @@
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql-compose
+    environment:
+      MYSQL_DATABASE: mydb
+      MYSQL_ROOT_PASSWORD: admin
+    volumes:
+      - mysql-compose-data:/var/lib/mysql
+    networks:
+      - twotier-compose
+    ports:
+      - "3306:3306"
+
+  flaskapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: flask-app:compose
+    container_name: flaskapp-compose
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin
+      MYSQL_DB: mydb
+    depends_on:
+      - mysql
+    networks:
+      - twotier-compose
+    ports:
+      - "5000:5000"
+    restart: always  
+
+volumes:
+  mysql-compose-data:
+
+networks:
+  twotier-compose:
