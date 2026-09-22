@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: two-tier-app
-          image: csriramganesh/two-tier-flask-devops-observability:latest
+          image: csriramganesh/two-tier-flask-app:v2
           imagePullPolicy: Always
 
           env:
