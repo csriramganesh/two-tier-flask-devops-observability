@@ -7,7 +7,8 @@ spec:
     app: two-tier-app
   type: LoadBalancer
   ports:
-    - protocol: TCP
+    - name: http  
+      protocol: TCP
       port: 80
       targetPort: 5000
     
